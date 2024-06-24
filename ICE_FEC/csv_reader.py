@@ -5,7 +5,6 @@ from io import StringIO
 # Multiline string containing the data
 data = """
 Order Status;Date created
-
 fulfilled;2023-01-01 0:37:08
 …
 """
