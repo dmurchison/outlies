@@ -90,14 +90,11 @@ data_io = StringIO(data)
 # Read the CSV data using pandas, specifying the delimiter
 df = pd.read_csv(data_io, delimiter=';')
 
-# Filter rows where 'Tracking number' does not start with 'GM'
-non_gm_shipments = df[~df['Tracking number'].str.startswith('GM', na=False)].copy()
+# Filter rows where 'Tracking number' starts with 'GM'
+gm_tracking_numbers = df[df['Tracking number'].str.startswith('GM', na=False)]
 
-# Remove ' USD' and convert to float
-non_gm_shipments.loc[:, 'Shipping Cost'] = non_gm_shipments['Shipping Cost'].str.replace(' USD', '').astype(float)
+# Count the number of such rows
+number_of_gm_trackings = gm_tracking_numbers.shape[0]
 
-# Calculate mean shipping cost for non-GM shipments
-average_non_gm_shipping_cost = non_gm_shipments['Shipping Cost'].mean()
-
-# Print average shipping cost
-print(round(average_non_gm_shipping_cost, 2))
+# Print the count
+print(number_of_gm_trackings)
